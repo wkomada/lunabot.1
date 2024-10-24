@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-FROM althack/ros2:humble-dev
-
-WORKDIR /lunabot
-RUN sudo add-apt-repository ppa:graysonarendt/sparkcan
-RUN sudo apt update \
-        && sudo apt install -y ros-humble-turtlesim ros-humble-rqt* git cmake sparkcan
-
-RUN sudo mkdir /run/user/1000 && sudo chmod 0700 /run/user/1000 && sudo chown 1000 /run/user/1000
-
-RUN sudo apt install -y iputils-ping
-# RUN sudo apt install -y ros-humble-teleop-twist-joy
-RUN sudo apt install -y ros-humble-joy
-=======
 FROM althack/ros2:eloquent-dev
 
 WORKDIR /lunabot
@@ -35,7 +21,6 @@ RUN sudo apt install ros-elquent-teleop-twist-joy
 #    && apt-get clean -y \
 #    && rm -rf /var/lib/apt/lists/*
 # ENV DEBIAN_FRONTEND=dialog
->>>>>>> 87d2530 (get controller working and other thing idk what I did)
 
 # Set up auto-source of workspace for ros user
 ARG WORKSPACE
