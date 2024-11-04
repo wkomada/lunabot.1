@@ -1,18 +1,4 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
-// docker build --tag ros2 .
-// docker run --net=host --cap-add=SYS_PTRACE --security-opt=seccomp:unconfined --security-opt=apparmor:unconfined --volume=/tmp/.X11-unix:/tmp/.X11-unix --volume .:/lunabot/ --ipc=host -dit ros2
-// ^^^^ yes on network
-// docker container start .. <--- while on the network
-// have to do some funny stuff for the first start
-//
-// what you have to do is:
-//      connect to network
-//      execute docker run...
-//      connect to wifi
-//      connect vscode to container
-//      move back to network
-//      will work now
-//      for future connections, just execute docker container start
 {
         "dockerFile": "Dockerfile",
         "build": {
@@ -27,15 +13,12 @@
                 "--security-opt=seccomp:unconfined",
                 "--security-opt=apparmor:unconfined",
                 "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
-<<<<<<< HEAD
                 "--volume=.:/lunabot/",
                 // "--volume=/dev/input/:/dev/input",
-                "--device=/dev/input"
+                // "--device=/dev/input"
                 // "--privileged"
-=======
-                "--volume=/dev/input/:/dev/input",
-                "--privileged"
->>>>>>> 87d2530 (get controller working and other thing idk what I did)
+                "--volume=/dev/input/:/dev/input"
+                // "--privileged"
                 // uncomment to use intel iGPU
                 // "--device=/dev/dri"
         ],

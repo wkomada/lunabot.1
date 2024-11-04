@@ -1,26 +1,16 @@
-FROM althack/ros2:eloquent-dev
+FROM althack/ros2:humble-dev
 
 WORKDIR /lunabot
 
 RUN sudo apt update \
-        && sudo apt install -y ros-eloquent-turtlesim \
-        && sudo apt install -y ros-eloquent-rqt*
+        && sudo apt install -y ros-humble-turtlesim \
+        && sudo apt install -y ros-humble-rqt*
 
-RUN sudo mkdir /run/user && sudo mkdir /run/user/1000 && sudo chmod 0700 /run/user/1000 && sudo chown 1000 /run/user/1000
+RUN sudo mkdir /run/user/1000 && sudo chmod 0700 /run/user/1000 && sudo chown 1000 /run/user/1000
 
 RUN sudo apt install -y iputils-ping
-RUN sudo apt install ros-elquent-teleop-twist-joy
-# ** [Optional] Uncomment this section to install additional packages. **
-#
-# ENV DEBIAN_FRONTEND=noninteractive
-# RUN apt-get update \
-#    && apt-get -y install --no-install-recommends <your-package-list-here> \
-#    #
-#    # Clean up
-#    && apt-get autoremove -y \
-#    && apt-get clean -y \
-#    && rm -rf /var/lib/apt/lists/*
-# ENV DEBIAN_FRONTEND=dialog
+# RUN sudo apt install -y ros-humble-teleop-twist-joy
+RUN sudo apt install -y ros-humble-joy
 
 # Set up auto-source of workspace for ros user
 ARG WORKSPACE
