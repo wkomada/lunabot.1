@@ -1,10 +1,9 @@
 FROM althack/ros2:humble-dev
 
 WORKDIR /lunabot
-
+RUN sudo add-apt-repository ppa:graysonarendt/sparkcan
 RUN sudo apt update \
-        && sudo apt install -y ros-humble-turtlesim \
-        && sudo apt install -y ros-humble-rqt*
+        && sudo apt install -y ros-humble-turtlesim ros-humble-rqt* git cmake sparkcan
 
 RUN sudo mkdir /run/user/1000 && sudo chmod 0700 /run/user/1000 && sudo chown 1000 /run/user/1000
 
