@@ -2,7 +2,7 @@
 Getting our local docker containers to communicate with the Nano requires some network hopping initially. This is just so that VSCode can install its server to interface with everything. All subsequent connections do not require this.
 
 Steps to connect initially are:
-- connect to wifi build your container and tag it as ros2 to make it easier to reference by running this in .decontainer:
+- connect to wifi build your container and tag it as ros2 to make it easier to reference by running this in .devcontainer:
 `docker build --tag ros2 .`
 - connect to the network, and run this while in the root directory of the project: <br>
 `docker run --net=host --cap-add=SYS_PTRACE --security-opt=seccomp:unconfined --security-opt=apparmor:unconfined --volume=/tmp/.X11-unix:/tmp/.X11-unix --volume .:/lunabot/ --ipc=host -dit ros2` <br>
