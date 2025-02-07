@@ -16,9 +16,11 @@ class Drivetrain : public rclcpp::Node
     : Node("Drivetrain")
     {
       subscription_ = this->create_subscription<sensor_msgs::msg::JointState>(
-      "drivetrain velocity", 10, std::bind(&Drivetrain::topic_callback, this, _1));
+      "drivetrain_velocity", 10, std::bind(&Drivetrain::topic_callback, this, _1));
       motors[0].SetInverted(false);
-      motors[2].SetInverted(false);
+      motors[1].SetInverted(true);
+      motors[2].SetInverted(true);
+      motors[3].SetInverted(false);
     }
 
   private:
@@ -26,12 +28,11 @@ class Drivetrain : public rclcpp::Node
     std::string locations[4] = {"Back Left", "Back Right", "Front Left", "Front Right"};
     void topic_callback(const sensor_msgs::msg::JointState &drivetrain_states)
     {
-      cout << "This is working!" << endl;
       SparkMax::Heartbeat();
-      motors[0].SetVelocity(drivetrain_states.velocity[0]);
-      motors[3].SetVelocity(drivetrain_states.velocity[3]);
-      motors[1].SetVelocity(drivetrain_states.velocity[1]);
-      motors[2].SetVelocity(drivetrain_states.velocity[2]);
+      motors[0].SetDutyCycle(drivetrain_states.velocity[0]);
+      motors[3].SetDutyCycle(drivetrain_states.velocity[3]);
+      motors[1].SetDutyCycle(drivetrain_states.velocity[1]);
+      motors[2].SetDutyCycle(drivetrain_states.velocity[2]);
       //for(int i = 0; i <=2; i+=2){
         //motors[i].SetDutyCycle((raw.axes[AXIS_LEFTY] + raw.axes[AXIS_RIGHTY])*MOTOR_MAX);
 	//motors[i].SetDutyCycle(0.1);
