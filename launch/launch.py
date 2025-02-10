@@ -19,13 +19,6 @@ def generate_launch_description():
     )
  #   foxglove_studio = ExecuteProcess(cmd=["foxglove-studio"])
 
-    drivetrain_node = Node(
-        package="drivetrain",
-        executable="drivetrain_node",
-        arguments=["address:=\"'::'\""]
-    )
-
-
     canable_start_process = ExecuteProcess(
         cmd=[
             "bash",
@@ -36,10 +29,17 @@ def generate_launch_description():
         output="screen",
     )
 
+    drivetrain_node = Node(
+        package="drivetrain",
+        executable="drivetrain_node",
+    )
+
+
+
     ld = LaunchDescription()
 
     ld.add_action(canable_start_process)
-    ld.add_action(drivetrain_node)
     ld.add_action(controller_teleop_node)
+    ld.add_action(drivetrain_node)
 
     return ld
