@@ -21,13 +21,21 @@ find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(interfaces REQUIRED)
 add_executable(teleop_node src/teleop_node.cpp)
+add_executable(keyboard_node src/keyboard_node.cpp)
 
 target_include_directories(teleop_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
+target_include_directories(keyboard_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
 
 ament_target_dependencies(teleop_node rclcpp sensor_msgs interfaces)
+ament_target_dependencies(keyboard_node rclcpp sensor_msgs)
 install(TARGETS teleop_node
+  EXPORT export_${PROJECT_NAME}
+  DESTINATION lib/${PROJECT_NAME})
+install(TARGETS keyboard_node
   EXPORT export_${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
 

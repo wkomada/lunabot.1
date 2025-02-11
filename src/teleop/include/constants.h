@@ -1,1 +1,1 @@
-#define MOTOR_MAX 0.1
+#define MOTOR_MAX 0.5
