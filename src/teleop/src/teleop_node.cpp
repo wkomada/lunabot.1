@@ -42,10 +42,21 @@ class Teleop : public rclcpp::Node
 
         if(teleopEnabled){
             cout << "This is working!" << endl;
-            drivetrain_states.velocity[0] = (raw.axes[AXIS_LEFTY])*MOTOR_MAX;
-            drivetrain_states.velocity[3] = (raw.axes[AXIS_LEFTY])*MOTOR_MAX;
-            drivetrain_states.velocity[1] = (raw.axes[AXIS_RIGHTY])*MOTOR_MAX;
-            drivetrain_states.velocity[2] = (raw.axes[AXIS_RIGHTY])*MOTOR_MAX;
+            if (!raw.axes[BUTTON_LBUMPER]) {
+              drivetrain_states.velocity[0] = (raw.axes[AXIS_LEFTY])*MOTOR_MAX;
+              drivetrain_states.velocity[3] = (raw.axes[AXIS_LEFTY])*MOTOR_MAX;
+              drivetrain_states.velocity[1] = (raw.axes[AXIS_RIGHTY])*MOTOR_MAX;
+              drivetrain_states.velocity[2] = (raw.axes[AXIS_RIGHTY])*MOTOR_MAX;
+              cout << "Normal speed" << endl;
+            }
+            else
+            {
+              drivetrain_states.velocity[0] = (raw.axes[AXIS_LEFTY])*ARHAN_MODE * MOTOR_MAX;
+              drivetrain_states.velocity[3] = (raw.axes[AXIS_LEFTY])*ARHAN_MODE * MOTOR_MAX;
+              drivetrain_states.velocity[1] = (raw.axes[AXIS_RIGHTY])*ARHAN_MODE * MOTOR_MAX;
+              drivetrain_states.velocity[2] = (raw.axes[AXIS_RIGHTY])*ARHAN_MODE * MOTOR_MAX;
+              cout << "Arhan Mode engaged" << endl;
+            }
         }
         drivetrainPub->publish(drivetrain_states);
     }
