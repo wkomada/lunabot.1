@@ -8,7 +8,6 @@
 #include "constants.h"
 using std::placeholders::_1;
 using namespace std;
-
 class Drivetrain : public rclcpp::Node
 {
  public:
@@ -26,7 +25,7 @@ class Drivetrain : public rclcpp::Node
     }
 
   private:
-    SparkMax motors[4] = {SparkMax("can0", 1), SparkMax("can0", 2), SparkMax("can0", 3), SparkMax("can0", 4)};    
+    SparkMax motors[4] = {SparkMax("can0", backLeft), SparkMax("can0", backRight), SparkMax("can0", frontLeft), SparkMax("can0", frontRight)};    
     std::string locations[4] = {"Back Left", "Back Right", "Front Left", "Front Right"};
     void topic_callback(const sensor_msgs::msg::JointState &drivetrain_states)
     {
