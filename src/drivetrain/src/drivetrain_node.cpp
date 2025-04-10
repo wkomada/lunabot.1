@@ -25,7 +25,7 @@ class Drivetrain : public rclcpp::Node
     }
 
   private:
-    SparkMax motors[4] = {SparkMax("can0", backLeft), SparkMax("can0", backRight), SparkMax("can0", frontLeft), SparkMax("can0", frontRight)};    
+    SparkMax motors[4] = {SparkMax("can0", BACK_LEFT), SparkMax("can0", BACK_RIGHT), SparkMax("can0", FRONT_LEFT), SparkMax("can0", FRONTRIGHT)};    
     std::string locations[4] = {"Back Left", "Back Right", "Front Left", "Front Right"};
     void topic_callback(const sensor_msgs::msg::JointState &drivetrain_states)
     {
