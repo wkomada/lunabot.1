@@ -23,8 +23,8 @@ def generate_launch_description():
         cmd=[
             "bash",
             "-c",
-            "sudo /lunabot/lunabot/lunabot/src/drivetrain/canable_start.sh",
-            "can0"
+            "/home/lunabot/lunabot/src/drivetrain/canable_start.sh",
+            "lunabot",
         ],
         output="screen",
     )

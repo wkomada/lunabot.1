@@ -20,22 +20,27 @@ class Drivetrain : public rclcpp::Node
 
       motors[0].SetInverted(false);
       motors[1].SetInverted(true);
-      motors[2].SetInverted(true);
-      motors[3].SetInverted(false);
+      motors[2].SetInverted(false);
+      motors[3].SetInverted(true);
+      for(int i = 0; i < 4; i++){
+      	motors[i].SetIdleMode(IdleMode::kBrake);
+	motors[i].SetMotorType(MotorType::kBrushless);
+      }
     }
 
   private:
-    SparkMax motors[4] = {SparkMax("can0", BACK_LEFT), SparkMax("can0", BACK_RIGHT), SparkMax("can0", FRONT_LEFT), SparkMax("can0", FRONTRIGHT)};    
+    SparkMax motors[4] = {SparkMax("can0", BACK_LEFT), SparkMax("can0", BACK_RIGHT), SparkMax("can0", FRONT_LEFT), SparkMax("can0", FRONT_RIGHT)};    
     std::string locations[4] = {"Back Left", "Back Right", "Front Left", "Front Right"};
     void topic_callback(const sensor_msgs::msg::JointState &drivetrain_states)
     {
       //set motor values
       SparkMax::Heartbeat();
-      motors[0].SetVoltage(drivetrain_states.velocity[0]);
-      motors[3].SetVoltage(drivetrain_states.velocity[3]);
-      motors[1].SetVoltage(drivetrain_states.velocity[1]);
-      motors[2].SetVoltage(drivetrain_states.velocity[2]);
-      
+      for(int i = 0; i < 4; i++){
+      	motors[i].SetVoltage(drivetrain_states.velocity[i] * MOTOR_MAX);
+      }
+      //for(int i = 0; i < 4; i++){
+      //	motors[i].SetVoltage(5);
+      //}
       //publlish sensor data
       sensor_msgs::msg::JointState motor_states;
       motor_states.name.resize(4);
